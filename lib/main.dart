@@ -1,43 +1,53 @@
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
+import 'screens/search_screen.dart';
+import 'screens/restaurant_detail_screen.dart';
+import 'screens/write_screen.dart';
+import 'screens/mypage_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
+      title: '맛집 기록',
       theme: ThemeData(
-        // useMaterial3: false,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
         ),
       ),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (_) => HomeScreen());
+          case '/search':
+            return MaterialPageRoute(builder: (_) => const SearchScreen());
+          case '/restaurant/detail':
+            final args = settings.arguments as Map<String, dynamic>?;
+            return MaterialPageRoute(
+              builder: (_) => RestaurantDetailScreen(
+                restaurantId: args?['restaurantId'] ?? '1',
+                name: args?['name'] ?? '맛집 이름',
+                category: args?['category'] ?? '카테고리',
+                location: args?['location'] ?? '위치',
+              ),
+            );
+          case '/write':
+            return MaterialPageRoute(builder: (_) => const WriteScreen());
+          case '/mypage':
+            return MaterialPageRoute(builder: (_) => const MyPageScreen());
+          default:
+            return MaterialPageRoute(builder: (_) => HomeScreen());
+        }
+      },
     );
   }
 }

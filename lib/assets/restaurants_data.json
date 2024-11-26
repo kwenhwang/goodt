@@ -1,0 +1,34 @@
+{
+  "restaurants": [
+    {
+      "id": "1",
+      "name": "비야 게레로",
+      "category": "멕시칸",
+      "location": "강남구, 삼성중앙역 인근",
+      "distance": "476m",
+      "rating": 4.4,
+      "reviewCount": 413,
+      "menus": ["타코", "오소리감투", "황선로", "특수부위", "고수"],
+      "price": "2만원 미만",
+      "images": [
+        "assets/images/restaurant1_1.jpg",
+        "assets/images/restaurant1_2.jpg"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "후비지떼",
+      "category": "디저트",
+      "location": "강남구, 삼성중앙역 인근",
+      "distance": "615m",
+      "rating": 4.4,
+      "reviewCount": 73,
+      "menus": ["휘낭시에", "까눌레", "마들렌", "구움과자"],
+      "price": "2만원 미만",
+      "images": [
+        "assets/images/restaurant2_1.jpg",
+        "assets/images/restaurant2_2.jpg"
+      ]
+    }
+  ]
+}
