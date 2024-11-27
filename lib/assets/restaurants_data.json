@@ -10,14 +10,11 @@
       "reviewCount": 413,
       "menus": ["타코", "오소리감투", "황선로", "특수부위", "고수"],
       "price": "2만원 미만",
-      "images": [
-        "assets/images/restaurant1_1.jpg",
-        "assets/images/restaurant1_2.jpg"
-      ]
+      "imageUrl": "https://d12zq4w4guyljn.cloudfront.net/750_750_20230327025700_photo1_gJo63MHA5zA2.jpg"
     },
     {
       "id": "2",
-      "name": "후비지떼",
+      "name": "후비지떼2",
       "category": "디저트",
       "location": "강남구, 삼성중앙역 인근",
       "distance": "615m",
@@ -25,10 +22,7 @@
       "reviewCount": 73,
       "menus": ["휘낭시에", "까눌레", "마들렌", "구움과자"],
       "price": "2만원 미만",
-      "images": [
-        "assets/images/restaurant2_1.jpg",
-        "assets/images/restaurant2_2.jpg"
-      ]
+      "imageUrl": ""
     }
   ]
 }

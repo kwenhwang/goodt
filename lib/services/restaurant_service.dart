@@ -1,49 +1,41 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import '../models/restaurant.dart';
 
 class RestaurantService extends ChangeNotifier {
-  final List<Restaurant> _restaurants = [];
-
-  List<Restaurant> get restaurants => _restaurants;
+  final String baseUrl = 'http://146.56.98.47:8000'; // 실제 서버 IP 주소로 변경
+  final dio = Dio(BaseOptions(
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept',
+    },
+  ));
 
   Future<List<Map<String, dynamic>>> loadRestaurants() async {
     try {
-      final String response =
-          await rootBundle.loadString('lib/assets/restaurants_data.json');
-      final data = await json.decode(response);
-      return List<Map<String, dynamic>>.from(data['restaurants']);
-    } catch (error) {
-      debugPrint('Error loading restaurants: $error');
+      final response = await dio.get('$baseUrl/restaurants/');
+      if (response.statusCode == 200) {
+        return List<Map<String, dynamic>>.from(response.data);
+      }
+      return [];
+    } catch (e) {
+      debugPrint('Error loading restaurants: $e');
       return [];
     }
   }
 
-  // 기존 메서드들 유지
-  void addRestaurant(Restaurant restaurant) {
-    _restaurants.add(restaurant);
-    notifyListeners();
-  }
-
-  void updateRestaurant(Restaurant restaurant) {
-    final index = _restaurants.indexWhere((r) => r.id == restaurant.id);
-    if (index != -1) {
-      _restaurants[index] = restaurant;
-      notifyListeners();
-    }
-  }
-
-  void deleteRestaurant(String id) {
-    _restaurants.removeWhere((r) => r.id == id);
-    notifyListeners();
-  }
-
-  Restaurant? getRestaurantById(String id) {
+  Future<void> addRestaurant(Map<String, dynamic> restaurant) async {
     try {
-      return _restaurants.firstWhere((r) => r.id == id);
+      final response = await dio.post(
+        '$baseUrl/restaurants/',
+        data: restaurant,
+      );
+      if (response.statusCode == 200) {
+        notifyListeners();
+      }
     } catch (e) {
-      return null;
+      debugPrint('Error adding restaurant: $e');
+      rethrow;
     }
   }
 }
